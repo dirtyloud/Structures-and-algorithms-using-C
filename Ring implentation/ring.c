@@ -14,12 +14,9 @@ struct Ring* pushAfter(struct Ring* head, int val){
         head -> next = temp;
     }
     else{
-        struct Ring* cursor = head;
-        while(cursor -> next != head){
-            cursor = cursor -> next;
-        }
-        cursor -> next = temp;
-        temp -> next = head;
+        struct Ring* cursor = head -> next;
+        head -> next = temp;
+        temp -> next = cursor;
     }
     return head;
 }
@@ -37,7 +34,6 @@ struct Ring* pushBefore(struct Ring* head, int val){
         }
         cursor -> next = temp;
         temp -> next = head;
-        head = temp;
     }
     return head;
 }
@@ -55,12 +51,13 @@ void outputRing(struct Ring* head){
     }
 }
 
-struct Ring* popAfter(struct Ring* head){
+struct Ring* popBefore(struct Ring* head){
     if (head == NULL){
         fprintf(stderr, "Ring is empty.");
         abort();
     }
     if (head -> next == head){
+        free(head);
         return NULL;
     }
     else{
@@ -74,22 +71,19 @@ struct Ring* popAfter(struct Ring* head){
     return head;
 }
 
-struct Ring* popBefore(struct Ring* head){
+struct Ring* popAfter(struct Ring* head){
     if (head == NULL){
         fprintf(stderr, "Ring is empty");
         abort();
     }
     if (head -> next == head){
+        free(head);
         return NULL;
     }
     else{
-        struct Ring* cursor = head;
-        while(cursor -> next != head){
-            cursor = cursor -> next;
-        }
-        head = head -> next;
-        free(cursor -> next);
-        cursor -> next = head;
+        struct Ring* cursor = head -> next;
+        head -> next = head -> next -> next;
+        free(cursor);
     }
     return head;
 }
