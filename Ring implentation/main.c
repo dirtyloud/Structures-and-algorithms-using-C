@@ -3,11 +3,12 @@
 int main() {
     struct Ring* head = NULL;
     head = pushAfter(head, 1);
-    pushAfter(head, 2);
-    pushAfter(head,4);
-    pushBefore(head, 3);
-    popBefore(head);
-    popAfter(head);
+    head = pushAfter(head, 2);
+    head = pushAfter(head,4);
+    head = pushBefore(head, 3);
+    head = popBefore(head);
+    head = popAfter(head);
     outputRing(head);
+    free(head);
     return 0;
 }
