@@ -43,11 +43,11 @@ void outputRing(struct Ring* head){
         printf("Ring is empty.");
     }
     else {
-        struct Ring *cursor = head;
+        struct Ring* cursor = head;
         do {
             printf("%3d", cursor->data);
             cursor = cursor->next;
-        } while (cursor != head);
+        }while (cursor != head);
     }
 }
 
@@ -65,8 +65,9 @@ struct Ring* popBefore(struct Ring* head){
         while(cursor -> next -> next != head){
             cursor = cursor -> next;
         }
-        free(cursor -> next);
+        struct Ring* temp = cursor -> next;
         cursor -> next = head;
+        free(temp);
     }
     return head;
 }
