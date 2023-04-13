@@ -36,13 +36,9 @@ void pushBefore(struct Ring** head , int data){
         (*head) -> next = *head;
     }
     else{
-        struct Ring* cursor = (*head);
-        while(cursor -> next != *head){
-            cursor = cursor -> next;
-        }
-        cursor -> next = newNode;
-        newNode -> prev = cursor;
         newNode -> next = (*head);
+        newNode -> prev = (*head) -> prev;
+        (*head) -> prev -> next = newNode;
         (*head) -> prev = newNode;
     }
 }
@@ -87,13 +83,9 @@ void popBefore(struct Ring** head){
         *head = NULL;
     }
     else{
-        struct Ring* cursor = (*head);
-        while(cursor -> next -> next != (*head)){
-            cursor = cursor -> next;
-        }
-        struct Ring* buffer = cursor -> next;
-        cursor -> next = (*head);
-        (*head) -> prev = cursor;
-        free(buffer);
+        struct Ring* temp = (*head) -> prev;
+        (*head) -> prev -> prev -> next = (*head);
+        (*head) -> prev = (*head) -> prev -> prev;
+        free(temp);
     }
 }
